@@ -15,7 +15,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.server.ResponseStatusException;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doThrow;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -86,6 +88,61 @@ class AuthControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {"email":"jdoe@example.com","password":"wrongpassword"}
+                                """))
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    void refresh_returns200_whenTokenIsValid() throws Exception {
+        AuthResponse response = AuthResponse.builder()
+                .accessToken("new_access")
+                .refreshToken("new_refresh")
+                .expiresIn(900L)
+                .build();
+        given(authService.refresh(anyString())).willReturn(response);
+
+        mockMvc.perform(post("/auth/refresh")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"refreshToken":"some_valid_token"}
+                                """))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.accessToken").value("new_access"))
+                .andExpect(jsonPath("$.refreshToken").value("new_refresh"));
+    }
+
+    @Test
+    void refresh_returns401_whenTokenIsInvalid() throws Exception {
+        given(authService.refresh(anyString()))
+                .willThrow(new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid refresh token"));
+
+        mockMvc.perform(post("/auth/refresh")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"refreshToken":"bad_token"}
+                                """))
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    void logout_returns204_whenTokenIsValid() throws Exception {
+        mockMvc.perform(post("/auth/logout")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"refreshToken":"some_valid_token"}
+                                """))
+                .andExpect(status().isNoContent());
+    }
+
+    @Test
+    void logout_returns401_whenTokenIsInvalid() throws Exception {
+        doThrow(new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid refresh token"))
+                .when(authService).logout(anyString());
+
+        mockMvc.perform(post("/auth/logout")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"refreshToken":"bad_token"}
                                 """))
                 .andExpect(status().isUnauthorized());
     }

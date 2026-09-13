@@ -3,6 +3,7 @@ package com.rbouaro.notificationatscale.auth.api;
 import com.rbouaro.notificationatscale.auth.model.dto.AuthResponse;
 import com.rbouaro.notificationatscale.auth.model.dto.LoginRequest;
 import com.rbouaro.notificationatscale.auth.model.dto.RegisterRequest;
+import com.rbouaro.notificationatscale.auth.model.dto.TokenRequest;
 import com.rbouaro.notificationatscale.auth.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,5 +24,16 @@ public class AuthController implements AuthApi {
     @Override
     public ResponseEntity<AuthResponse> login(LoginRequest request) {
         return ResponseEntity.ok(authService.login(request));
+    }
+
+    @Override
+    public ResponseEntity<AuthResponse> refresh(TokenRequest request) {
+        return ResponseEntity.ok(authService.refresh(request.getRefreshToken()));
+    }
+
+    @Override
+    public ResponseEntity<Void> logout(TokenRequest request) {
+        authService.logout(request.getRefreshToken());
+        return ResponseEntity.noContent().build();
     }
 }

@@ -53,6 +53,29 @@ public class AuthService {
         return buildAuthResponse(credentials);
     }
 
+    @Transactional
+    public AuthResponse refresh(String refreshTokenValue) {
+        RefreshToken stored = refreshTokenRepository.findByToken(refreshTokenValue)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid refresh token"));
+        if (stored.isRevoked() || stored.isExpired()) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid refresh token");
+        }
+        stored.revoke();
+        UserCredentials credentials = userService.findCredentialsById(stored.getUserId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid refresh token"));
+        return buildAuthResponse(credentials);
+    }
+
+    @Transactional
+    public void logout(String refreshTokenValue) {
+        RefreshToken stored = refreshTokenRepository.findByToken(refreshTokenValue)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid refresh token"));
+        if (stored.isRevoked() || stored.isExpired()) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid refresh token");
+        }
+        stored.revoke();
+    }
+
     private AuthResponse buildAuthResponse(UserCredentials credentials) {
         String accessToken = jwtService.generateAccessToken(
                 credentials.id(), credentials.uuid(), credentials.username());
