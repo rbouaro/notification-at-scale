@@ -1,6 +1,8 @@
 package com.rbouaro.notificationatscale.user;
 
-import com.rbouaro.notificationatscale.user.persistence.UserRepository;
+import com.rbouaro.notificationatscale.exception.UserNotFoundException;
+import com.rbouaro.notificationatscale.user.model.UserMapper;
+import com.rbouaro.notificationatscale.user.model.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

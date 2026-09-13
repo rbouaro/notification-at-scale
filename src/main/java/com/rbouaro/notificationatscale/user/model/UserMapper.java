@@ -1,6 +1,6 @@
-package com.rbouaro.notificationatscale.user;
+package com.rbouaro.notificationatscale.user.model;
 
-import com.rbouaro.notificationatscale.user.persistence.User;
+import com.rbouaro.notificationatscale.user.UserProfile;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

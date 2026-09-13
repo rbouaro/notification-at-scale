@@ -1,4 +1,4 @@
-package com.rbouaro.notificationatscale.user.persistence;
+package com.rbouaro.notificationatscale.user.model;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

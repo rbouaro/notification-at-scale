@@ -1,18 +1,19 @@
-package com.rbouaro.notificationatscale.user.persistence;
+package com.rbouaro.notificationatscale.user.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Index;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -26,9 +27,9 @@ import static lombok.AccessLevel.PROTECTED;
             @UniqueConstraint(name = "uk_users_uuid", columnNames = "uuid"),
             @UniqueConstraint(name = "uk_users_username", columnNames = "username"),
             @UniqueConstraint(name = "uk_users_email", columnNames = "email")
-        },
-        indexes = @Index(name = "idx_users_uuid", columnList = "uuid")
+        }
 )
+@EntityListeners(AuditingEntityListener.class)
 @Getter
 @NoArgsConstructor(access = PROTECTED)
 public class User {
@@ -60,24 +61,16 @@ public class User {
     @Column(name = "avatar_url", length = 500)
     private String avatarUrl;
 
+    @CreatedDate
     @Column(nullable = false, updatable = false)
     private Instant createdAt;
 
+    @LastModifiedDate
     private Instant updatedAt;
 
     public User(String username, String email) {
+        this.uuid = UUID.randomUUID();
         this.username = username;
         this.email = email;
-    }
-
-    @PrePersist
-    void prePersist() {
-        this.uuid = UUID.randomUUID();
-        this.createdAt = Instant.now();
-    }
-
-    @PreUpdate
-    void preUpdate() {
-        this.updatedAt = Instant.now();
     }
 }
