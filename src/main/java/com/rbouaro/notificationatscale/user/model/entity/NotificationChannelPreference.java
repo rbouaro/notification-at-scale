@@ -15,10 +15,10 @@ import lombok.Setter;
 import static lombok.AccessLevel.PROTECTED;
 
 @Entity
-@Table(name = "user_preferences")
+@Table(name = "notification_channel_preferences")
 @Getter
 @NoArgsConstructor(access = PROTECTED)
-public class UserPreference {
+public class NotificationChannelPreference {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,7 +39,7 @@ public class UserPreference {
     @Column(nullable = false)
     private boolean enabled = true;
 
-    public UserPreference(Long userId, NotificationType notificationType, NotificationChannel channel) {
+    public NotificationChannelPreference(Long userId, NotificationType notificationType, NotificationChannel channel) {
         this.userId = userId;
         this.notificationType = notificationType;
         this.channel = channel;

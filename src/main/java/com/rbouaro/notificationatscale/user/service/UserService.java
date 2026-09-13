@@ -21,7 +21,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final UserSettingsService userSettingsService;
-    private final UserPreferenceService userPreferenceService;
+    private final NotificationChannelPreferenceService notificationChannelPreferenceService;
 
     public UserProfile findById(UUID uuid) {
         return userRepository.findByUuid(uuid)
@@ -55,7 +55,7 @@ public class UserService {
     public UserCredentials register(String username, String email, String passwordHash) {
         User user = userRepository.save(new User(username, email, passwordHash));
         userSettingsService.createDefaults(user.getId());
-        userPreferenceService.createDefaults(user.getId());
+        notificationChannelPreferenceService.createDefaults(user.getId());
         return toCredentials(user);
     }
 
