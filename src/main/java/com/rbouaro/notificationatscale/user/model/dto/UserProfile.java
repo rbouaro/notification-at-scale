@@ -1,4 +1,4 @@
-package com.rbouaro.notificationatscale.user;
+package com.rbouaro.notificationatscale.user.model.dto;
 
 import java.time.Instant;
 import java.util.UUID;

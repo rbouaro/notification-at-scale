@@ -1,6 +1,9 @@
 package com.rbouaro.notificationatscale.user;
 
 import com.rbouaro.notificationatscale.exception.UserNotFoundException;
+import com.rbouaro.notificationatscale.user.api.UserController;
+import com.rbouaro.notificationatscale.user.model.dto.UserProfile;
+import com.rbouaro.notificationatscale.user.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;

@@ -1,6 +1,6 @@
-package com.rbouaro.notificationatscale.user.doc;
+package com.rbouaro.notificationatscale.user.api;
 
-import com.rbouaro.notificationatscale.user.UserProfile;
+import com.rbouaro.notificationatscale.user.model.dto.UserProfile;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;

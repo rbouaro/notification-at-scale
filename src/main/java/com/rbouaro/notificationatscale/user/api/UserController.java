@@ -1,6 +1,7 @@
-package com.rbouaro.notificationatscale.user;
+package com.rbouaro.notificationatscale.user.api;
 
-import com.rbouaro.notificationatscale.user.doc.UserApi;
+import com.rbouaro.notificationatscale.user.model.dto.UserProfile;
+import com.rbouaro.notificationatscale.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,5 +1,6 @@
-package com.rbouaro.notificationatscale.user.model;
+package com.rbouaro.notificationatscale.user.model.repository;
 
+import com.rbouaro.notificationatscale.user.model.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

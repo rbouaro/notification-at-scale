@@ -1,9 +1,11 @@
 package com.rbouaro.notificationatscale.user;
 
 import com.rbouaro.notificationatscale.exception.UserNotFoundException;
-import com.rbouaro.notificationatscale.user.model.User;
-import com.rbouaro.notificationatscale.user.model.UserMapper;
-import com.rbouaro.notificationatscale.user.model.UserRepository;
+import com.rbouaro.notificationatscale.user.model.dto.UserProfile;
+import com.rbouaro.notificationatscale.user.model.entity.User;
+import com.rbouaro.notificationatscale.user.model.mapper.UserMapper;
+import com.rbouaro.notificationatscale.user.model.repository.UserRepository;
+import com.rbouaro.notificationatscale.user.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
