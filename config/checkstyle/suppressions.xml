@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE suppressions PUBLIC
+        "-//Checkstyle//DTD SuppressionFilter Configuration 1.2//EN"
+        "https://checkstyle.org/dtds/suppressions_1_2.dtd">
+<suppressions>
+
+    <!--
+        ArchUnit @ArchTest fields are static final but follow lowerCamelCase by convention,
+        not UPPER_SNAKE_CASE. ConstantName is suppressed for architecture test classes only.
+    -->
+    <suppress checks="ConstantName"
+              files="[\\/]architecture[\\/].*\.java$"/>
+
+</suppressions>

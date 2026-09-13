@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+# Enforces conventional commit format.
+#
+# Rules:
+#   feat, fix, refactor, test  — ticket required:  type(TICKET-ID): description
+#   chore, docs, style         — ticket optional:  type[(TICKET-ID)]: description
+#   Freeform allowlist         — "initial commit", "initial setup" (case-insensitive)
+
+COMMIT_MSG_FILE="$1"
+COMMIT_MSG=$(head -1 "$COMMIT_MSG_FILE")
+
+TICKET_REQUIRED='^(feat|fix|refactor|test)\([A-Z]+-[0-9]+\): .+'
+TICKET_OPTIONAL='^(chore|docs|style)(\([A-Z]+-[0-9]+\))?: .+'
+FREEFORM='^(initial commit|initial setup)$'
+
+if echo "$COMMIT_MSG" | grep -qiE "$FREEFORM"; then
+  exit 0
+fi
+
+if echo "$COMMIT_MSG" | grep -qE "$TICKET_REQUIRED"; then
+  exit 0
+fi
+
+if echo "$COMMIT_MSG" | grep -qE "$TICKET_OPTIONAL"; then
+  exit 0
+fi
+
+echo ""
+echo "  Commit rejected: message does not follow the conventional commit format."
+echo ""
+echo "  Ticket required (feat, fix, refactor, test):"
+echo "    type(TICKET-ID): short description"
+echo ""
+echo "  Ticket optional (chore, docs, style):"
+echo "    type: short description"
+echo "    type(TICKET-ID): short description"
+echo ""
+echo "  Ticket ID: uppercase letters, a dash, then digits (e.g. FARIA-42, ABC-123)"
+echo ""
+echo "  Examples:"
+echo "    feat(FARIA-12): add portfolio risk scoring"
+echo "    fix(FARIA-7): correct null check in exposure calculator"
+echo "    chore: configure Checkstyle and PMD"
+echo "    chore(FARIA-1): configure Checkstyle and PMD"
+echo "    docs: update architecture overview"
+echo "    style: reformat import order"
+echo ""
+echo "  Also accepted: \"initial commit\", \"initial setup\""
+echo ""
+echo "  Your message: $COMMIT_MSG"
+echo ""
+exit 1

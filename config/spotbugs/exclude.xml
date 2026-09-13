@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FindBugsFilter
+        xmlns="https://github.com/spotbugs/filter/3.0.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="https://github.com/spotbugs/filter/3.0.0
+                            https://raw.githubusercontent.com/spotbugs/spotbugs/master/spotbugs/etc/findbugsfilter.xsd">
+
+    <!--
+        Spring Boot @SpringBootApplication main class: SpotBugs may flag
+        the static main method or class-level patterns that are idiomatic
+        for Spring Boot entry points.
+    -->
+    <Match>
+        <Class name="com.rbouaro.faria.FariaApplication"/>
+        <Bug category="STYLE"/>
+    </Match>
+
+</FindBugsFilter>
