@@ -20,6 +20,7 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final UserPreferenceService userPreferenceService;
 
     public UserProfile findById(UUID uuid) {
         return userRepository.findByUuid(uuid)
@@ -48,6 +49,7 @@ public class UserService {
     @Transactional
     public UserCredentials register(String username, String email, String passwordHash) {
         User user = userRepository.save(new User(username, email, passwordHash));
+        userPreferenceService.createDefaults(user.getId());
         return toCredentials(user);
     }
 
