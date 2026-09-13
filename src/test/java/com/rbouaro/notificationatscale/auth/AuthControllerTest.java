@@ -3,7 +3,7 @@ package com.rbouaro.notificationatscale.auth;
 import com.rbouaro.notificationatscale.auth.api.AuthController;
 import com.rbouaro.notificationatscale.auth.model.dto.AuthResponse;
 import com.rbouaro.notificationatscale.auth.service.AuthService;
-import com.rbouaro.notificationatscale.config.SecurityConfig;
+import com.rbouaro.notificationatscale.config.security.SecurityConfig;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;

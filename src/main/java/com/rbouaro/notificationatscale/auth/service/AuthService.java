@@ -5,7 +5,7 @@ import com.rbouaro.notificationatscale.auth.model.dto.LoginRequest;
 import com.rbouaro.notificationatscale.auth.model.dto.RegisterRequest;
 import com.rbouaro.notificationatscale.auth.model.entity.RefreshToken;
 import com.rbouaro.notificationatscale.auth.model.repository.RefreshTokenRepository;
-import com.rbouaro.notificationatscale.config.JwtProperties;
+import com.rbouaro.notificationatscale.config.properties.JwtProperties;
 import com.rbouaro.notificationatscale.exception.ConflictException;
 import com.rbouaro.notificationatscale.user.model.dto.UserCredentials;
 import com.rbouaro.notificationatscale.user.service.UserService;

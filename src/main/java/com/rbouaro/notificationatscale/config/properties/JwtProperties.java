@@ -1,4 +1,4 @@
-package com.rbouaro.notificationatscale.config;
+package com.rbouaro.notificationatscale.config.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

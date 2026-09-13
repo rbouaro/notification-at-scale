@@ -1,6 +1,6 @@
 package com.rbouaro.notificationatscale.auth.service;
 
-import com.rbouaro.notificationatscale.config.JwtProperties;
+import com.rbouaro.notificationatscale.config.properties.JwtProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
 import org.springframework.security.oauth2.jwt.JwtEncoder;

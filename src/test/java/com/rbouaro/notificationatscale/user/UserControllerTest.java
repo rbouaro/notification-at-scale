@@ -1,6 +1,6 @@
 package com.rbouaro.notificationatscale.user;
 
-import com.rbouaro.notificationatscale.config.SecurityConfig;
+import com.rbouaro.notificationatscale.config.security.SecurityConfig;
 import com.rbouaro.notificationatscale.exception.UserNotFoundException;
 import com.rbouaro.notificationatscale.user.api.UserController;
 import com.rbouaro.notificationatscale.user.model.dto.UserProfile;
