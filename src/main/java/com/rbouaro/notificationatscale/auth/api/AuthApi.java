@@ -3,6 +3,7 @@ package com.rbouaro.notificationatscale.auth.api;
 import com.rbouaro.notificationatscale.auth.model.dto.AuthResponse;
 import com.rbouaro.notificationatscale.auth.model.dto.LoginRequest;
 import com.rbouaro.notificationatscale.auth.model.dto.RegisterRequest;
+import com.rbouaro.notificationatscale.auth.model.dto.TokenRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -27,4 +28,16 @@ public interface AuthApi {
     @ApiResponse(responseCode = "401", description = "Invalid credentials")
     @PostMapping("/login")
     ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest request);
+
+    @Operation(summary = "Refresh access token")
+    @ApiResponse(responseCode = "200", description = "New access and refresh tokens issued")
+    @ApiResponse(responseCode = "401", description = "Refresh token is invalid, expired, or revoked")
+    @PostMapping("/refresh")
+    ResponseEntity<AuthResponse> refresh(@Valid @RequestBody TokenRequest request);
+
+    @Operation(summary = "Logout and revoke refresh token")
+    @ApiResponse(responseCode = "204", description = "Refresh token revoked")
+    @ApiResponse(responseCode = "401", description = "Refresh token is invalid, expired, or revoked")
+    @PostMapping("/logout")
+    ResponseEntity<Void> logout(@Valid @RequestBody TokenRequest request);
 }

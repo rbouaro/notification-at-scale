@@ -45,6 +45,10 @@ public class UserService {
         return userRepository.findByEmail(email).map(this::toCredentials);
     }
 
+    public Optional<UserCredentials> findCredentialsById(Long id) {
+        return userRepository.findById(id).map(this::toCredentials);
+    }
+
     @Transactional
     public UserCredentials register(String username, String email, String passwordHash) {
         User user = userRepository.save(new User(username, email, passwordHash));
