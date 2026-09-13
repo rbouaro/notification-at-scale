@@ -1,0 +1,31 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '\n⚠ Before you finish: have you run /validate-ticket NOTIFY-X to check all acceptance criteria and the Definition of Done?'"
+          }
+        ]
+      }
+    ]
+  },
+  "permissions": {
+    "allow": [
+      "Bash(docker run --rm *)",
+      "Bash(docker compose logs *)",
+      "Bash(docker compose ps *)",
+      "Bash(git -C *)",
+      "Bash(./mvnw *)",
+      "mcp__claude_ai_Atlassian__getAccessibleAtlassianResources",
+      "mcp__claude_ai_Atlassian__getVisibleJiraProjects",
+      "mcp__claude_ai_Atlassian__getJiraIssue",
+      "mcp__claude_ai_Atlassian__searchJiraIssuesUsingJql",
+      "mcp__claude_ai_Atlassian__getTransitionsForJiraIssue",
+      "mcp__claude_ai_Atlassian__getJiraProjectIssueTypesMetadata",
+      "mcp__claude_ai_Atlassian__atlassianUserInfo"
+    ]
+  }
+}
