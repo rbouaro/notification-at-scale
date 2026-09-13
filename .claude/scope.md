@@ -6,7 +6,7 @@ This is a system design learning project. The codebase grows incrementally to ex
 
 ## Module structure (Spring Modulith)
 
-Each domain is a self-contained Spring Modulith module under `com.rbouaro.notification`:
+Each domain is a self-contained Spring Modulith module under `com.rbouaro.notificationatscale`:
 
 | Module | Responsibility |
 |---|---|
@@ -31,12 +31,16 @@ Every story is done when ALL of the following are true:
 
 ## Coding conventions
 
-- Entities use UUID primary keys (`@UuidGenerator`)
+- Entities use a numeric PK (`id`, `@GeneratedValue(IDENTITY)`) for DB indexing and a UUID field (`uuid`, unique, non-updatable) as the client-facing identifier
+- `uuid` is mapped to `id` in API responses via MapStruct so clients always see a UUID `id`
 - All timestamps are `Instant` (UTC) — never `LocalDateTime`
 - Pagination uses Spring Data `Pageable` with a default page size of 20
-- Error responses follow RFC 9457 Problem Details (`ProblemDetail`)
+- Error responses follow RFC 9457 Problem Details (`ProblemDetail`); enable via `spring.mvc.problemdetails.enabled: true`
 - Validation uses Jakarta Bean Validation (`@NotBlank`, `@Email`, etc.) on request DTOs
-- No Lombok on entities — use canonical constructors; Lombok is fine on DTOs and services
+- Lombok is allowed on all classes: entities use `@Getter` + field-level `@Setter` only on mutable fields + `@NoArgsConstructor(access = PROTECTED)` for JPA; DTOs and services use `@Data` / `@RequiredArgsConstructor` as needed
+- Use MapStruct (`@Mapper(componentModel = "spring")`) for entity → DTO mapping; Lombok must be listed before MapStruct in annotation processor paths
+- API documentation interfaces live in a `doc` sub-package of each module (e.g. `user.doc.UserApi`); controllers implement these interfaces and carry zero Swagger annotations
+- Infrastructure configuration (OpenAPI, Security, etc.) lives in the `config` package
 
 ## Ticket workflow
 
