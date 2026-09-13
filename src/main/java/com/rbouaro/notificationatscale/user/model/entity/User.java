@@ -49,6 +49,9 @@ public class User {
     @Column(nullable = false, length = 255)
     private String email;
 
+    @Column(name = "password_hash", nullable = false, length = 60)
+    private String passwordHash;
+
     @Setter
     @Column(name = "display_name", length = 100)
     private String displayName;
@@ -68,9 +71,10 @@ public class User {
     @LastModifiedDate
     private Instant updatedAt;
 
-    public User(String username, String email) {
+    public User(String username, String email, String passwordHash) {
         this.uuid = UUID.randomUUID();
         this.username = username;
         this.email = email;
+        this.passwordHash = passwordHash;
     }
 }
