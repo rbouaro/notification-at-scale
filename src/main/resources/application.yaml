@@ -8,6 +8,9 @@ spring:
 
   jackson:
     time-zone: UTC
+  mvc:
+    problemdetails:
+      enabled: true
   jpa:
     open-in-view: false
     properties:
