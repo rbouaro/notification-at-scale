@@ -1,13 +1,16 @@
 package com.rbouaro.notificationatscale.user.service;
 
 import com.rbouaro.notificationatscale.exception.UserNotFoundException;
+import com.rbouaro.notificationatscale.user.model.dto.UserCredentials;
 import com.rbouaro.notificationatscale.user.model.dto.UserProfile;
+import com.rbouaro.notificationatscale.user.model.entity.User;
 import com.rbouaro.notificationatscale.user.model.mapper.UserMapper;
 import com.rbouaro.notificationatscale.user.model.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -28,5 +31,27 @@ public class UserService {
         return userRepository.findByUsername(username)
                 .map(userMapper::toProfile)
                 .orElseThrow(() -> new UserNotFoundException("username", username));
+    }
+
+    public boolean existsByEmail(String email) {
+        return userRepository.existsByEmail(email);
+    }
+
+    public boolean existsByUsername(String username) {
+        return userRepository.existsByUsername(username);
+    }
+
+    public Optional<UserCredentials> findCredentialsByEmail(String email) {
+        return userRepository.findByEmail(email).map(this::toCredentials);
+    }
+
+    @Transactional
+    public UserCredentials register(String username, String email, String passwordHash) {
+        User user = userRepository.save(new User(username, email, passwordHash));
+        return toCredentials(user);
+    }
+
+    private UserCredentials toCredentials(User user) {
+        return new UserCredentials(user.getId(), user.getUuid(), user.getUsername(), user.getPasswordHash());
     }
 }

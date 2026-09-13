@@ -40,7 +40,7 @@ class UserServiceTest {
     @BeforeEach
     void setUp() {
         uuid = UUID.randomUUID();
-        user = new User("jdoe", "jdoe@example.com");
+        user = new User("jdoe", "jdoe@example.com", "hashed_password");
         profile = new UserProfile(uuid, "jdoe", "jdoe@example.com", null, null, null, Instant.now(), null);
     }
 
