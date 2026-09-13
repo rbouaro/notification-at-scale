@@ -1,11 +1,11 @@
 package com.rbouaro.notificationatscale.user;
 
 import com.rbouaro.notificationatscale.config.security.SecurityConfig;
-import com.rbouaro.notificationatscale.user.api.UserPreferenceController;
-import com.rbouaro.notificationatscale.user.model.dto.UserPreferencesDto;
+import com.rbouaro.notificationatscale.user.api.NotificationChannelPreferenceController;
+import com.rbouaro.notificationatscale.user.model.dto.NotificationChannelPreferencesDto;
 import com.rbouaro.notificationatscale.user.model.entity.NotificationChannel;
 import com.rbouaro.notificationatscale.user.model.entity.NotificationType;
-import com.rbouaro.notificationatscale.user.service.UserPreferenceService;
+import com.rbouaro.notificationatscale.user.service.NotificationChannelPreferenceService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
@@ -17,7 +17,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.Map;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
@@ -26,22 +25,22 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(UserPreferenceController.class)
+@WebMvcTest(NotificationChannelPreferenceController.class)
 @Import(SecurityConfig.class)
-class UserPreferenceControllerTest {
+class NotificationChannelPreferenceControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @MockitoBean
-    private UserPreferenceService userPreferenceService;
+    private NotificationChannelPreferenceService notificationChannelPreferenceService;
 
     @Test
     void getMyPreferences_returns200_whenAuthenticated() throws Exception {
-        UserPreferencesDto dto = new UserPreferencesDto(Map.of(
+        NotificationChannelPreferencesDto dto = new NotificationChannelPreferencesDto(Map.of(
                 NotificationType.TRANSACTIONAL, Map.of(NotificationChannel.EMAIL, true, NotificationChannel.SMS, true)
         ));
-        given(userPreferenceService.getByUserId(1L)).willReturn(dto);
+        given(notificationChannelPreferenceService.getByUserId(1L)).willReturn(dto);
 
         mockMvc.perform(get("/users/me/notification-preferences")
                         .with(jwt().jwt(b -> b.claim("user_id", 1))))
@@ -57,10 +56,10 @@ class UserPreferenceControllerTest {
 
     @Test
     void updatePreference_returns200_whenAuthenticated() throws Exception {
-        UserPreferencesDto dto = new UserPreferencesDto(Map.of(
+        NotificationChannelPreferencesDto dto = new NotificationChannelPreferencesDto(Map.of(
                 NotificationType.PROMOTIONAL, Map.of(NotificationChannel.SMS, false)
         ));
-        given(userPreferenceService.toggle(eq(1L), eq(NotificationType.PROMOTIONAL), eq(NotificationChannel.SMS), eq(false)))
+        given(notificationChannelPreferenceService.toggle(eq(1L), eq(NotificationType.PROMOTIONAL), eq(NotificationChannel.SMS), eq(false)))
                 .willReturn(dto);
 
         mockMvc.perform(patch("/users/me/notification-preferences/PROMOTIONAL/SMS")

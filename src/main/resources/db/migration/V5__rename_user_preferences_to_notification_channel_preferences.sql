@@ -1,0 +1,10 @@
+ALTER TABLE user_preferences RENAME TO notification_channel_preferences;
+
+ALTER TABLE notification_channel_preferences
+    RENAME CONSTRAINT pk_user_preferences TO pk_notification_channel_preferences;
+
+ALTER TABLE notification_channel_preferences
+    RENAME CONSTRAINT fk_user_preferences_users TO fk_notification_channel_preferences_users;
+
+ALTER INDEX uk_user_preferences_combo RENAME TO uk_notification_channel_preferences_combo;
+ALTER INDEX idx_user_preferences_routing RENAME TO idx_notification_channel_preferences_routing;

@@ -5,7 +5,7 @@ import com.rbouaro.notificationatscale.user.model.dto.UserProfile;
 import com.rbouaro.notificationatscale.user.model.entity.User;
 import com.rbouaro.notificationatscale.user.model.mapper.UserMapper;
 import com.rbouaro.notificationatscale.user.model.repository.UserRepository;
-import com.rbouaro.notificationatscale.user.service.UserPreferenceService;
+import com.rbouaro.notificationatscale.user.service.NotificationChannelPreferenceService;
 import com.rbouaro.notificationatscale.user.service.UserService;
 import com.rbouaro.notificationatscale.user.service.UserSettingsService;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,7 +36,7 @@ class UserServiceTest {
     private UserSettingsService userSettingsService;
 
     @Mock
-    private UserPreferenceService userPreferenceService;
+    private NotificationChannelPreferenceService notificationChannelPreferenceService;
 
     @InjectMocks
     private UserService userService;

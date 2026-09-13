@@ -5,4 +5,4 @@ import com.rbouaro.notificationatscale.user.model.entity.NotificationType;
 
 import java.util.Map;
 
-public record UserPreferencesDto(Map<NotificationType, Map<NotificationChannel, Boolean>> preferences) {}
+public record NotificationChannelPreferencesDto(Map<NotificationType, Map<NotificationChannel, Boolean>> preferences) {}
