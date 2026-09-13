@@ -6,6 +6,7 @@ import com.rbouaro.notificationatscale.user.model.entity.User;
 import com.rbouaro.notificationatscale.user.model.mapper.UserMapper;
 import com.rbouaro.notificationatscale.user.model.repository.UserRepository;
 import com.rbouaro.notificationatscale.user.service.UserService;
+import com.rbouaro.notificationatscale.user.service.UserSettingsService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -29,6 +30,9 @@ class UserServiceTest {
 
     @Mock
     private UserMapper userMapper;
+
+    @Mock
+    private UserSettingsService userSettingsService;
 
     @InjectMocks
     private UserService userService;
