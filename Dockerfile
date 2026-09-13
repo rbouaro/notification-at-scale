@@ -10,4 +10,4 @@ FROM eclipse-temurin:26-jre@sha256:6272dd10034adf1177526d8c7c095f7190a170adc66b5
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-Duser.timezone=UTC", "-jar", "app.jar"]
