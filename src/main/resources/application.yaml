@@ -17,6 +17,11 @@ spring:
       hibernate:
         jdbc:
           time_zone: UTC
+        default_schema: ${POSTGRES_SCHEMA:public}
+  flyway:
+    default-schema: ${POSTGRES_SCHEMA:public}
+    schemas: ${POSTGRES_SCHEMA:public}
+    create-schemas: true
   datasource:
     hikari:
       pool-name: notification-pool
